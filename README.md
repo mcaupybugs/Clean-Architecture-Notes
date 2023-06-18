@@ -114,7 +114,7 @@ My personal notes on the book Clean Architecture: A Craftsman's Guide to Softwar
 
 ## Violations of SRP
 ### 1. Duplication
-![employee-class](/img/employee.PNG)
+![employee-class](./img/employee.PNG)
 - An `Employee` class that has three functions, ` calculatePay(), reportHours(), and save()` would violate SRP because:
   *  Those three methods are responsible to **three different actors**
      * The `calculatePay()` method would be specified by the accountant, who reports to the **CFO**
@@ -127,12 +127,12 @@ My personal notes on the book Clean Architecture: A Craftsman's Guide to Softwar
 - Multiple people changing the same source file for different reasons causes risks
 - One solution is to **seperate code that supports different actors**
 
-![seperate-data-from-functions](/img/employeeData.PNG)
+![seperate-data-from-functions](./img/employeeData.PNG)
 - One way to solve the above `Employee` class is to seperate data from functions
-![facade-pattern](/img/facade.png)
+![facade-pattern](./img/facade.png)
 
 - However, the downside of this is developers now have 3 classes they have to instantiate and track. A common solution here is to use the Facade pattern
-![keep-important-functions-in-Employee](/img/originalEmployee.png)
+![keep-important-functions-in-Employee](./img/originalEmployee.png)
 
 - The `EmployeeFacade` contains very little code, so the solution is to keep the most important method in the original `Employee` class and then using that class as a Facade for the lesser functions, like above
 
@@ -147,12 +147,12 @@ My personal notes on the book Clean Architecture: A Craftsman's Guide to Softwar
 ### SRP Approach
 - Following SRP would result in a plan like this: 
   
-![Following-SRP-Principle](/img/SRP-Plan.PNG)
+![Following-SRP-Principle](./img/SRP-Plan.PNG)
 - The essential insight here is that generating the report involves 2 separate responsibilities: 
   * The calculation of the reported data
   * The presentation of the data
  
-![Partitioning-Classes](/img/Partitioning-Classes.png)
+![Partitioning-Classes](./img/Partitioning-Classes.png)
 - This sepeation can be done, like above, by having a: **Controller - Interactor - Database - Presenter - Views**
 - Open arrowheads are using relationships. Closed arrowheads are implements or inheritance relationships
 - Notice that each double line is crossed in one direction only. This means that all component relationships are unidirectional
@@ -160,7 +160,7 @@ My personal notes on the book Clean Architecture: A Craftsman's Guide to Softwar
 
 ### Protection Levels
 
-![unidirectional](/img/unidirectional.png)
+![unidirectional](./img/unidirectional.png)
 - We can see that we have arrows that point toward the components that **we want to protect from change**
 - If component A should be protected from changes in component B, then component B should depend on component A
 - We want to protect the **Controller** from changes in the **Presenters**
@@ -182,12 +182,12 @@ My personal notes on the book Clean Architecture: A Craftsman's Guide to Softwar
 
 ### Example that follows LSP: 
 
-![License](/img/License.PNG)
+![License](./img/License.PNG)
 - This design conforms to LSP because: the behavior of the `Billing` does not depend on any of the 2 subtypes Both of the subtypes are substitutable for the `License` class
 
 ## Example that violates LSP: The Square/Rectangle Problem
 
-![square-rectangle](/img/square-rectangle-prb.PNG)
+![square-rectangle](./img/square-rectangle-prb.PNG)
 
 - Above, `Square` is not a proper subtype of `Rectangle` because the height and width of the Rectangle are independently mutable
 - In contrast, the height and width of the `Square` must change together
@@ -198,19 +198,19 @@ My personal notes on the book Clean Architecture: A Craftsman's Guide to Softwar
 
 # <a name="isp">10. ISP: The Interface Segregation Principle</a> 
 
-![isp](/img/isp.PNG)
+![isp](./img/isp.PNG)
 - **Definition:** Clients should not be forced to depend upon interfaces that they do not use
 - Imagine if *User1* uses only op1, and *User2* uses only op2, and *User3* uses only op3
 - When we run a program with this class, *User1* will still depend on op2 and op3 even though it doesn't call them
 - Any change to op2 and op3 will force *User1* to be recompiled
 - **The fix** here is to segregate the operations into interfaces as shown below
 
-![segregate-ops](/img/Segregate.PNG)
+![segregate-ops](./img/Segregate.PNG)
 -  **ISP is a language issue, rather than an architecture issue.** This is because the above program would not run into issues at run time in a dynamically type language like Python
 
 ### Another example that violates ISP
 
-![architect](/img/architect.PNG)
+![architect](./img/architect.PNG)
 - We see that S depends on F, and F depends on D. Any changes in D will force redeployment in S and F, which can cause issues
 
 # <a name="dip">11. DIP: The Dependency Inversion Principle</a> 
@@ -224,7 +224,7 @@ My personal notes on the book Clean Architecture: A Craftsman's Guide to Softwar
   
 ## Example: Abstract Factory
 
-![Abstract-Factory](/img/Abstract-Factory.PNG)
+![Abstract-Factory](./img/Abstract-Factory.PNG)
 - The `Application` uses the `ConcreteImpl` through the `Service` interface
 - However, the `Application` must somehow create instances of the `ConcreteImpl`
 - To achieve this, without creating a source code dependency on the `ConcreteImpl`, the `Application` calls the `makeSvc` method of the `ServiceFactory` interface
@@ -268,7 +268,7 @@ My personal notes on the book Clean Architecture: A Craftsman's Guide to Softwar
 
 ## The Tension Diagram for Component Cohesion
 
-![tension-diagram](/img/tension-diagram.PNG)
+![tension-diagram](./img/tension-diagram.PNG)
 - The REP and CCP are inclusive principles: Both tend to make components larger
 - The CRP is an exclusive principle, driving components to be smaller
 - It is the tension between these principles that good architects seek to resolve
@@ -314,7 +314,7 @@ My personal notes on the book Clean Architecture: A Craftsman's Guide to Softwar
 
 # <a name="drawing-lines">17. Boundaries: Drawing Lines</a> 
 
-![boundaries](/img/boundaries.PNG)
+![boundaries](./img/boundaries.PNG)
 - Which kinds of decisions are premature? Decisions that have nothing to do with the business requirements—the use cases—of the system
 - These include decisions about frameworks, databases, web servers, utility libraries, dependency injection, and the like
 - A good system architecture allows those decisions to be made at the latest possible moment, without significant impact
@@ -325,7 +325,7 @@ My personal notes on the book Clean Architecture: A Craftsman's Guide to Softwar
 
 ### What About Input and Output?
 
-![GUI-Boundary](/img/GUI-Boundary.PNG)
+![GUI-Boundary](./img/GUI-Boundary.PNG)
 - It is wrong to define a system in terms of the GUI, and believe that you should see the GUI start working immediately about the database
 - Consider a video game, for example. Your experience is dominated by the interface: the screen, the mouse, the buttons, and the sound
 - Behind the interface, there is a model—a sophisticated set of data structures and functions driving it
@@ -347,7 +347,7 @@ My personal notes on the book Clean Architecture: A Craftsman's Guide to Softwar
 
 ### The Dreaded Monolith
 
-![crossing-boundaries](/img/crossing-boundaries.png)
+![crossing-boundaries](./img/crossing-boundaries.png)
 - All dependencies cross the boundary from right to left toward the higher-level component
 - High-level components remain independent of lower-level details
 
@@ -355,7 +355,7 @@ My personal notes on the book Clean Architecture: A Craftsman's Guide to Softwar
 
 ### Level
 
-![encryption-prg](/img/encryption-prg.PNG)
+![encryption-prg](./img/encryption-prg.PNG)
 - “level” is “the distance from the inputs and outputs.”
 - The farther a policy is from both the inputs and the outputs of the system, the higher its level
 - The policies that manage input and output are the lowest level policies in the system
@@ -368,7 +368,7 @@ function encrypt() {
 }
 ```
 
-![better-encryption-prg](/img/better-encryption.PNG)
+![better-encryption-prg](./img/better-encryption.PNG)
 - A better architecture is shown above, all dependencies point inward
 - `ConsoleReader` and `ConsoleWrite` are low level because they are close to the inputs and outputs
 - **This structure decouples the high-level encryption policy from the lower-level input/output policies**
@@ -381,12 +381,12 @@ function encrypt() {
 ### Entities
 - An Entity is an object within our computer system that embodies a small set of critical business rules operating on Critical Business Data
 
-![Loan-Entity](/img/Loan-Entity.PNG)
+![Loan-Entity](./img/Loan-Entity.PNG)
 - This example shows a Loan entity, and it implements a concept that is critical to the business, and is seperated from every other concern (DB, U, framework, etc)
 
 ### Use Cases
 
-![use-case](/img/use-case.PNG)
+![use-case](./img/use-case.PNG)
 -  A use case is a description of the way that an automated system is used. It specifies the input to be provided by the user, the output to be returned to the user, and the processing steps involved in producing that output
 - **Notice that the use case does not describe the user interface other than to informally specify the data coming in from that interface**
 - **This is very important. Use cases do not describe how the system appears to the user. Instead, they describe the application-specific rules that govern the interaction between the users and the Entities**
@@ -409,17 +409,17 @@ function encrypt() {
 
 ### Dependency Rules
 
-![clean-architecture](/img/clean-architecture.PNG)
+![clean-architecture](./img/clean-architecture.PNG)
 - Nothing in an inner circle can know anything at all about something in an outer circle. 
 - The name of something declared in an outer circle must not be mentioned by the code in an inner circle. That includes functions, classes, variables, or any other named software entity
 
 ### Example: web-based Java system utilizing a database
 
-![webap-db](/img/webap-db.png)
+![webap-db](./img/webap-db.png)
 
-![exp-figure](/img/exp-figure.PNG)
+![exp-figure](./img/exp-figure.PNG)
 
-![exp-figure(2)](/img/exp-figure(2).PNG)
+![exp-figure(2)](./img/exp-figure(2).PNG)
 
 # <a name="services">22. Services: Great and Small</a>
 - Services, or microservices, appear to support independence of development and deployment. Again, as we shall see, this is only partially true
@@ -428,21 +428,21 @@ function encrypt() {
 
 ## The Kitty Problem
 
-![taxi](/img/taxi.png)
+![taxi](./img/taxi.png)
 - Imagine we have a taxi aggregator system, and developers announced a new feature, kitten delivery service to the city. Users can order kittens to be delivered to their homes or to their places of business
 - Of course, some drivers and customers will be allergic and can't use the new service
 - Looking at the diagram, all of the services will need to be changed to add the new feature because the services are coupled and cannot be independently developed
 
 ## Objects to the rescue
 
-![objects-taxi](/img/objects-taxi.png)
+![objects-taxi](./img/objects-taxi.png)
 - To solve the above example when adding the new feature, we carefully follow SOLID principles and create a set of classes that could be polymorphically extended to handle new features. Much of the logic is preserved within the base classes via **components**
 - The `Ride` and `Kittens` components now ovveride the abstract base classes using the *Template Method* and *Strategy* patterns
 
-![services-internal-component](/img/services-internal-component.png)
+![services-internal-component](./img/services-internal-component.png)
 - The 2 components also follow the dependency rule, and the classes that implement those features are created by factories under the control of the UI
 
-![dependency-objects-taxi](/img/dependency-objects-taxi.png)
+![dependency-objects-taxi](./img/dependency-objects-taxi.png)
 - Services must be designed with internal component architectures that follow the Dependency Rule, like shown above
 - Those services do not define the architectural boundaries of the system; instead, the components within the services do
 
@@ -460,12 +460,12 @@ function encrypt() {
 
 ### Use Case Analysis
 
-![use-case-analysis](/img/use-case-analysis.PNG)
+![use-case-analysis](./img/use-case-analysis.PNG)
 - According to the Single Responsibility Principle, these four actors will be the four primary sources of change for the system
 - A change to a feature in one actor will not affect any other actor
 - Note the dashed use cases. They are abstract use cases. An abstract use case is one that sets a general policy that another use case will flesh out
 
-![architecture](/img/architecture.PNG)
+![architecture](./img/architecture.PNG)
 - The double lines in the drawing represent architectural boundaries
 - Note the partitioning of views, presenters, interactors, and controllers
 - Note that each actor has their own categories
